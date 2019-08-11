@@ -21,6 +21,15 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
     // 記事情報の配列の入れ物
 //    var articles = NSMutableArray()
     var articles: [Any] = []
+    // XMLファイルに解析をかけた情報
+    var elements = NSMutableDictionary()
+    // XMLファイルのタグ情報
+    var elememt: String = ""
+    // XMLファイルのタイトル情報
+    var titleString: String = ""
+    // XMLファイルのリンク情報
+    var linkString: String = ""
+
 
     // webview
     @IBOutlet weak var webView: WKWebView!
@@ -55,11 +64,13 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
         // 最初は隠す（tableviewが表示されるのを邪魔しないように）
         webView.isHidden = true
         toolBar.isHidden = true
+
+        parseUrl()
     }
 
     // urlを解析する
     func parseUrl() {
-        // url型いに変換
+        // url型に変換
         let urlToSend: URL = URL(string: url)!
         // parser に解析対象のurlを格納
         parser = XMLParser(contentsOf: urlToSend)!
@@ -70,6 +81,50 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
         // TableViewのリロード
         tableView.reloadData()
     }
+    // 解析中に要素の開始タグがあったときに実行されるメソッド
+    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+
+        // elememtNameにタグの名前が入ってくるのでelementに代入
+        elememt = elementName
+        // エレメントにタイトルが入ってきたら
+        if elememt == "item" {
+            // 初期化
+            elements = [:]
+            titleString = ""
+            linkString = ""
+        }
+    }
+
+    // 開始タグと終了タグでくくられたデータがあったときに実行されるメソッド
+    func parser(_ parser: XMLParser, foundCharacters string: String) {
+
+        if elememt == "title" {
+            titleString.append(string)
+        } else if elememt == "link" {
+            linkString.append(string)
+        }
+    }
+
+    // 終了タグを見つけた時
+    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+        // アイテムという要素の中にあるなら、
+        if elementName == "item" {
+            // titleString,linkStringの中身が空でないなら
+            if titleString != "" {
+                // elementsに"title"、"Link"というキー値を付与しながらtitleString,linkStringをセット
+                elements.setObject(titleString, forKey: "title" as NSCopying)
+            }
+            if linkString != "" {
+                elements.setObject(linkString, forKey: "link" as NSCopying)
+            }
+            // articlesの中にelementsを入れる
+            articles.append(elements)
+        }
+    }
+
+
+
+
 
     // セルの高さ
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
