@@ -22,7 +22,6 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
     var parser = XMLParser()
 
     // 記事情報の配列の入れ物
-//    var articles = NSMutableArray()
     var articles: [Any] = []
     // XMLファイルに解析をかけた情報
     var elements = NSMutableDictionary()
@@ -81,6 +80,7 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
 
     @objc func delay() {
         parseUrl()
+        // refreshControlを終了
         refreshControl.endRefreshing()
     }
 
@@ -127,12 +127,14 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         // アイテムという要素の中にあるなら、
         if elementName == "item" {
-            // titleString,linkStringの中身が空でないなら
+            // titleStringの中身が空でないなら
             if titleString != "" {
-                // elementsに"title"、"Link"というキー値を付与しながらtitleString,linkStringをセット
+                // elementsに"title"というキー値を付与しながらtitleStringをセット
                 elements.setObject(titleString, forKey: "title" as NSCopying)
             }
+            // linkStringの中身が空でないなら
             if linkString != "" {
+                // elementsに"link"というキー値を付与しながらlinkStringをセット
                 elements.setObject(linkString, forKey: "link" as NSCopying)
             }
             // articlesの中にelementsを入れる
@@ -173,13 +175,14 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
 
     // セルをタップしたときの処理
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // 後で書く
+        //
         let linkUrl = ((articles[indexPath.row] as AnyObject).value(forKey: "link") as? String)?.trimmingCharacters(in: .whitespacesAndNewlines)
         let urlStr = (linkUrl?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))!
         guard let url = URL(string: urlStr) else {
             return
         }
         let urlRequest = NSURLRequest(url: url)
+        // ここでロード
         webView.load(urlRequest as URLRequest)
     }
 
