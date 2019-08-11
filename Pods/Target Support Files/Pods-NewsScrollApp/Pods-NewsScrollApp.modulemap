@@ -1,0 +1,6 @@
+framework module Pods_NewsScrollApp {
+  umbrella header "Pods-NewsScrollApp-umbrella.h"
+
+  export *
+  module * { export * }
+}
