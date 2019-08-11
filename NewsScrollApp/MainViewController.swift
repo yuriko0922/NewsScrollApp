@@ -45,8 +45,5 @@ class MainViewController: ButtonBarPagerTabStripViewController {
         // VCを返す
         return childViewControllers
     }
-
-
-
 }
 

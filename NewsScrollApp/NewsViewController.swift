@@ -49,14 +49,11 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
         tableView.delegate = self
         tableView.dataSource = self
 
-        // parserとの接続
-        parser.delegate = self
-
         // navigationDelegateとの接続
         webView.navigationDelegate = self
 
         // tableviewのサイズを確定
-        tableView.frame = CGRect(x: 0, y: 50, width: self.view.frame.width, height: self.view.frame.height - 50)
+        tableView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
 
         // tableviewをviewに追加
         self.view.addSubview(tableView)
@@ -76,6 +73,8 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
         parser = XMLParser(contentsOf: urlToSend)!
         // 記事情報を初期化
         articles = []
+        // parserとの接続
+        parser.delegate = self
         // 解析の実行
         parser.parse()
         // TableViewのリロード
@@ -122,10 +121,6 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
         }
     }
 
-
-
-
-
     // セルの高さ
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
@@ -146,10 +141,12 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
 
         // 記事テキストサイズとフォント
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+        cell.textLabel?.text = (articles[indexPath.row] as AnyObject).value(forKey: "title") as? String
         cell.textLabel?.textColor = UIColor.black
 
         // 記事urlのサイズとフォント
         cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13)
+        cell.detailTextLabel?.text = (articles[indexPath.row] as AnyObject).value(forKey: "link") as? String
         cell.detailTextLabel?.textColor = UIColor.gray
 
         return cell
@@ -158,6 +155,13 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
     // セルをタップしたときの処理
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 後で書く
+        let linkUrl = ((articles[indexPath.row] as AnyObject).value(forKey: "link") as? String)?.trimmingCharacters(in: .whitespacesAndNewlines)
+        let urlStr = (linkUrl?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))!
+        guard let url = URL(string: urlStr) else {
+            return
+        }
+        let urlRequest = NSURLRequest(url: url)
+        webView.load(urlRequest as URLRequest)
     }
 
     // ページの読み込み完了時に呼ばれる
@@ -191,7 +195,6 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
     }
 
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
-
         return itemInfo
     }
 
