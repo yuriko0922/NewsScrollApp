@@ -14,6 +14,7 @@
 		DD8AFBA022FF94BA005AFD25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD8AFB9F22FF94BA005AFD25 /* Assets.xcassets */; };
 		DD8AFBA322FF94BA005AFD25 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD8AFBA122FF94BA005AFD25 /* LaunchScreen.storyboard */; };
 		DD8AFBAB22FFA9B2005AFD25 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8AFBAA22FFA9B2005AFD25 /* NewsViewController.swift */; };
+		DD8AFBAD22FFBD5C005AFD25 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD8AFBAC22FFBD5C005AFD25 /* WebKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		DD8AFBA222FF94BA005AFD25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DD8AFBA422FF94BA005AFD25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DD8AFBAA22FFA9B2005AFD25 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
+		DD8AFBAC22FFBD5C005AFD25 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		DF3FDC2B5A84D8AD40C28D34 /* Pods_NewsScrollApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewsScrollApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -35,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD8AFBAD22FFBD5C005AFD25 /* WebKit.framework in Frameworks */,
 				9F4C09FA5F7F3E020254C9AE /* Pods_NewsScrollApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -45,6 +48,7 @@
 		87F0F30CA6FA6EDF964E9025 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DD8AFBAC22FFBD5C005AFD25 /* WebKit.framework */,
 				DF3FDC2B5A84D8AD40C28D34 /* Pods_NewsScrollApp.framework */,
 			);
 			name = Frameworks;
