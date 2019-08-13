@@ -234,7 +234,11 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
         // webviewを表示する
         webView.isHidden = false
         
-        indicator.isHidden = false
+        indicator.isHidden = true
+        indicator.stopAnimating()
+        
+        grayOutView.isHidden = true
+        
     }
 
     // キャンセル
