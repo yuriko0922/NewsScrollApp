@@ -56,7 +56,7 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         //インディケーターの追加
-        indicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 60, height: 60), type: NVActivityIndicatorType.lineSpinFadeLoader, color: UIColor.red, padding: 0)
+        indicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 60, height: 60), type: NVActivityIndicatorType.lineSpinFadeLoader, color: UIColor.white, padding: 0)
         indicator.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 50)
         view.addSubview(indicator)
         
