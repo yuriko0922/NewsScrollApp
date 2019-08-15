@@ -14,9 +14,9 @@ import NVActivityIndicatorView
 
 class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDataSource, UITableViewDelegate, WKNavigationDelegate, XMLParserDelegate{
     
-    //インディケーターを定義
+    // インディケーターを定義
     var indicator: NVActivityIndicatorView!
-    //ロード中
+    // ロード中
     private let grayOutView = UIView()
     
     
@@ -55,12 +55,12 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //インディケーターの追加、配置、色
+        // インディケーターの追加、配置、色
         indicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 60, height: 60), type: NVActivityIndicatorType.lineSpinFadeLoader, color: UIColor.white, padding: 0)
         indicator.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 50)
         view.addSubview(indicator)
         
-        //grayOutViewの範囲、色
+        // grayOutViewの範囲、色
         grayOutView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         grayOutView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.4)
         
@@ -136,16 +136,6 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
         }
     }
     
-    //func showIndicator() {
-    // インジケータビューの背景
-    //indicatorBackgroundView = UIView(frame: self.view.bounds)
-    // indicatorBackgroundView?.backgroundColor = UIColor.black
-    //indicatorBackgroundView?.alpha = 0.4
-    //indicatorBackgroundView?.tag = 100100
-    
-    
-    //    }
-    
     // 開始タグと終了タグでくくられたデータがあったときに実行されるメソッド
     func parser(_ parser: XMLParser, foundCharacters string: String) {
         
@@ -213,7 +203,7 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
         //indicator表示する
         indicator.isHidden = false
         indicator.startAnimating()
-        //
+        // webviewを表示する
         let linkUrl = ((articles[indexPath.row] as AnyObject).value(forKey: "link") as? String)?.trimmingCharacters(in: .whitespacesAndNewlines)
         let urlStr = (linkUrl?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))!
         guard let url = URL(string: urlStr) else {
