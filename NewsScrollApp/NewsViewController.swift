@@ -18,11 +18,8 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
     var indicator: NVActivityIndicatorView!
     // ロード中
     private let grayOutView = UIView()
-    
-    
     // 引っ張って更新
     var refreshControl: UIRefreshControl!
-    
     // テーブルビューのインスタンスを取得
     var tableView: UITableView = UITableView()
     
@@ -227,7 +224,6 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
         indicator.stopAnimating()
         //grayOutView隠す
         grayOutView.isHidden = true
-        
     }
     
     // キャンセル
@@ -253,5 +249,4 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
         return itemInfo
     }
-    
 }
